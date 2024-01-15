@@ -3154,25 +3154,42 @@ const [phoneNumber, setPhoneNumber] = useState('');
             // Add more cities and states as needed
         ]
  };
-     const [states, setStates] = useState([]);
+    
     const [selectedState, setSelectedState] = useState('');
-    const [locations, setLocations] = useState([]);
+   
     const [selectedLocation, setSelectedLocation] = useState('');
-    useEffect(() => {
-        const uniqueStates = [...new Set(citiesData["List Of Cities And Towns In Ind"].map(city => city.State))];
-        setStates(uniqueStates);
-    }, [citiesData]);
+    const [states, setStates] = useState<string[]>([]);
+   
+    const [locations, setLocations] = useState<string[]>([]);
+
+    const citiesInSelectedState: string[] = citiesData["List Of Cities And Towns In Ind"]
+  .filter(city => city.State === selectedState)
+  .map(city => city["Name of City"]);
 
     useEffect(() => {
-        if (selectedState) {
-            const citiesInSelectedState = citiesData["List Of Cities And Towns In Ind"]
-                .filter(city => city.State === selectedState)
-                .map(city => city["Name of City"]);
-            setLocations(citiesInSelectedState);
-        } else {
-            setLocations([]);
+        if (citiesData && citiesData["List Of Cities And Towns In Ind"]) {
+          const uniqueStatesSet = new Set(citiesData["List Of Cities And Towns In Ind"].map(city => city.State));
+          const uniqueStatesArray: string[] = [];
+          
+          uniqueStatesSet.forEach(state => uniqueStatesArray.push(state));
+      
+          setStates(uniqueStatesArray);
         }
-    }, [selectedState, citiesData]);
+      }, [citiesData]);
+      
+      useEffect(() => {
+        if (selectedState) {
+          const citiesInSelectedState = citiesData["List Of Cities And Towns In Ind"]
+            .filter(city => city.State === selectedState)
+            .map(city => city["Name of City"]);
+          
+            setLocations(citiesInSelectedState);
+
+        } else {
+          setLocations([]);
+        }
+      }, [selectedState, citiesData]);
+      
     /* ----------------------------- register submit function ---------------------------- */
     const onSubmitHandler = async (data: any) => {
         if (CurrentPage === 1) {
