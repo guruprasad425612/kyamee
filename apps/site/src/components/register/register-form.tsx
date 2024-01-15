@@ -57,7 +57,13 @@ const RegisterForm = () => {
                                     data.freelancer_role === 'admin'
                                         ? true
                                         : false,
+                                 state: data.state, // Capture the value of the state field
+        location: data.location, // Capture the value of the location field
                             },
+                          // Update the field name
+                             
+                            // Add location to the request
+                            ...(showLocationField && { location: data.location })
                         },
                     }).then((res) => {
                         setLoading(false);
@@ -83,7 +89,11 @@ const RegisterForm = () => {
             }
         }
     };
-
+ // Update this function to show/hide the location field based on the selected role
+ const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedRole = e.target.value;
+    setShowLocationField(selectedRole === 'candidate');
+  };
     /* ------------------------- previous page function ------------------------- */
     const previousHandler = () => {
         if (CurrentPage === 2) {
@@ -111,6 +121,7 @@ const RegisterForm = () => {
                                     defaultValue="candidate"
                                     className="hidden absolute"
                                     {...register('freelancer_role')}
+                                    
                                     defaultChecked
                                 />
                                 <label
