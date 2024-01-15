@@ -3158,7 +3158,21 @@ const [phoneNumber, setPhoneNumber] = useState('');
     const [selectedState, setSelectedState] = useState('');
     const [locations, setLocations] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState('');
+    useEffect(() => {
+        const uniqueStates = [...new Set(citiesData["List Of Cities And Towns In Ind"].map(city => city.State))];
+        setStates(uniqueStates);
+    }, [citiesData]);
 
+    useEffect(() => {
+        if (selectedState) {
+            const citiesInSelectedState = citiesData["List Of Cities And Towns In Ind"]
+                .filter(city => city.State === selectedState)
+                .map(city => city["Name of City"]);
+            setLocations(citiesInSelectedState);
+        } else {
+            setLocations([]);
+        }
+    }, [selectedState, citiesData]);
     /* ----------------------------- register submit function ---------------------------- */
     const onSubmitHandler = async (data: any) => {
         if (CurrentPage === 1) {
