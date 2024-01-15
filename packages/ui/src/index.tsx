@@ -1,6 +1,0 @@
-
-// Header import here...
-export * from './header'
-
-// Footer import here...
-export * from './footer'
