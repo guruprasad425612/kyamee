@@ -28,10 +28,5 @@
   "dependencies": {
     "multiselect-react-dropdown": "^2.0.25"
   },
-  "packageManager": "pnpm@7.9.0",
-  "description": "This is the instructions on setting up this project locally. To run the project locally follow these simple following steps.",
-  "main": ".eslintrc.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "packageManager": "pnpm@7.9.0"
 }

@@ -136,20 +136,19 @@ function CandidateDataList() {
 }
 
 export default function Candidate() {
-    const { user, loggedIn } = useUser();
-
     return (
         <>
             <Head>
                 <meta
                     name="description"
-                    content="Explore the expert candidates. Find all candidates."
+                    content="Explore the expert expert candidates. Find all candidates."
                 />
             </Head>
 
             <Layout>
                 <main>
                     <PageTitle title="Candidate List" />
+<<<<<<< Updated upstream
                     
                     {loggedIn ? (
                         <div>
@@ -159,6 +158,9 @@ export default function Candidate() {
                     ) : (
                         <p>Please sign in to view the candidate list.</p>
                     )}
+=======
+                    <CandidateDataList />
+>>>>>>> Stashed changes
                 </main>
             </Layout>
         </>

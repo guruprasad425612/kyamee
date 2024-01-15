@@ -1,4 +1,5 @@
 import Head from "next/head";
+import React from "react";
 import Layout from "../src/components/frontend/layout";
 import useUser, { UserLogin } from "../src/components/lib/user";
 import RegisterForm from "../src/components/register/register-form";
