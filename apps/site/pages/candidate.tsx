@@ -153,7 +153,7 @@ export default function Candidate() {
                     
                     {loggedIn ? (
                         <div>
-                            <p>Welcome, {user?.name}!</p>
+                            <p>Welcome, </p>
                             <CandidateDataList />
                         </div>
                     ) : (
