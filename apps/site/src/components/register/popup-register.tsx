@@ -3191,75 +3191,69 @@ const [phoneNumber, setPhoneNumber] = useState('');
       }, [selectedState, citiesData]);
       
     /* ----------------------------- register submit function ---------------------------- */
-    const onSubmitHandler = async (data: any) => {
-        if (CurrentPage === 1) {
-            setCurrentPage(2);
-        }
-        
-        if (CurrentPage === 2) {
-            if (data.password !== data.confirm_password) {
-                addToast('Password and Confirm Password does not match', {
-                    appearance: 'error',
-                    autoDismiss: true,
-                });
-            } else if (data.password === data.confirm_password) {
-                try {
-                    await Axios({
-                        method: 'post',
-                        url: `/users/signup`,
-                        data: {
-                            fullName: {
-                                firstName: data.first_name,
-                                lastName: data.last_name,
-                            },
-                            email: data.email,
-                            isConfirmed: false,
-                            password: data.password,
-                            role: {
-                                isCandidate:
-                                    data.freelancer_role === 'candidate'
-                                        ? true
-                                        : false,
-                                isEmployer:
-                                    data.freelancer_role === 'employer'
-                                        ? true
-                                        : false,
-                                isAdmin:
-                                    data.freelancer_role === 'admin'
-                                        ? true
-                                        : false,
-           state: data.state,
-    location: data.location,
-    phoneNumber: data.phoneNumber,
-                            },
-                    
-                             
-                        },
-                    }).then((res) => {
-                        if (res.status === 200 || res.status === 201) {
-                            addToast(res.data.message, {
-                                appearance: 'success',
-                                autoDismiss: true,
-                            });
-                            RegisterPopupHandler();
-                            LoginPopupHandler();
-                            setTimeout(() => {
-                                setCurrentPage(1);
-                                reset();
-                            }, 3000);
-                        }
-                    });
+  // ... (previous code)
 
-                    
-                } catch (error: any) {
-                    addToast(error.response.data.message, {
-                        appearance: 'error',
-                        autoDismiss: true,
-                    });
-                }
-            }
-        }
-    };
+/* ----------------------------- register submit function ---------------------------- */
+const onSubmitHandler = async (data: any) => {
+  if (CurrentPage === 1) {
+      setCurrentPage(2);
+  }
+
+  if (CurrentPage === 2) {
+      if (data.password !== data.confirm_password) {
+          addToast('Password and Confirm Password do not match', {
+              appearance: 'error',
+              autoDismiss: true,
+          });
+      } else if (data.password === data.confirm_password) {
+          try {
+              await Axios({
+                  method: 'post',
+                  url: `/users/signup`,
+                  data: {
+                      fullName: {
+                          firstName: data.first_name,
+                          lastName: data.last_name,
+                      },
+                      email: data.email,
+                      isConfirmed: false,
+                      password: data.password,
+                      role: {
+                          isCandidate: data.freelancer_role === 'candidate',
+                          isEmployer: data.freelancer_role === 'employer',
+                          isAdmin: data.freelancer_role === 'admin',
+                      },
+                      state: data.state,
+                      location: data.location,
+                      phoneNumber: data.phoneNumber, // Add phoneNumber to the data
+                  },
+              }).then((res) => {
+                  if (res.status === 200 || res.status === 201) {
+                      addToast(res.data.message, {
+                          appearance: 'success',
+                          autoDismiss: true,
+                      });
+                      RegisterPopupHandler();
+                      LoginPopupHandler();
+                      setTimeout(() => {
+                          setCurrentPage(1);
+                          reset();
+                      }, 3000);
+                  }
+              });
+
+          } catch (error: any) {
+              addToast(error.response.data.message, {
+                  appearance: 'error',
+                  autoDismiss: true,
+              });
+          }
+      }
+  }
+};
+
+// ... (remaining code)
+
 
     /* ------------------------- previous page function ------------------------- */
     const previousHandler = () => {
